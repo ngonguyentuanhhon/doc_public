@@ -240,7 +240,7 @@ WHERE confirmed = '1'
 
 #### Quiz
 
-- Các loại:
+- Các loại Check trên DB đang dùng:
   - Multiple choice  
   - True/False  
   - Matching  
@@ -248,7 +248,7 @@ WHERE confirmed = '1'
   - Essay  
   - Cloze  
 
-> Thực tế dùng nhiều: **Multiple choice, All-or-Nothing, True/False**
+> Thực tế dùng [hỏi anh trung]: **Multiple choice, All-or-Nothing, True/False**
 
 ---
 
@@ -258,11 +258,27 @@ WHERE confirmed = '1'
 
 ---
 
-### 2.6 Cấu hình hoàn thành
+### 2.6 Cấu hình điều kiện hoàn thành
 
-- Khóa học  
-- Bài học  
-- Chứng chỉ  
+- Cấu hình điều kiện Khóa học  
+  - Điều kiện chung:
+    - Hoàn thành khi thỏa mãn tất cả các điều kiện
+    - Hoàn thành khi bất kỳ 1 điều kiện nào được thỏa mãn
+  - Điều kiện: Hoạt động hoàn thành
+  - Điều kiện: Hoàn thành các khóa học khác
+  - Điều kiện: Ngày giờ
+  - Điều kiện: Thời gian ghi danh
+  - Điều kiện: Rút tên
+  - Điều kiện: Điểm số khóa học
+  - Điều kiện: Tự hoàn thành
+  - Điều kiện: Hoàn thành thủ công bởi những người khác
+- Cấu hình điều kiện Bài học 
+  - ko xác đinh hoàn thành
+  - học viên tự đánh dấu là hoàn thành
+  - phải xem hoạt động để hoàn thành
+  - Mỗi loại bài học sẽ có thêm các config điều kiện riêng theo loại đó 
+
+> Đây là 1 trong các plugin phức tạp nhất của moodle, là tổ hợp của rất nhiều plugin khác nhau => rất khó để migrate 
 
 ---
 
