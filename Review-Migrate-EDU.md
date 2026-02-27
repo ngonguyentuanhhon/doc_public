@@ -288,3 +288,7 @@ WHERE confirmed = '1'
 - Bài học: điểm, hoàn thành
 - Khóa học: điểm, hoàn thành
 - Chứng chỉ khóa học
+
+> Dữ liệu về điểm và trạng thái hoàn thành từng bài học khóa học có thể lấy và migrate được
+
+> Dữ liệu học của từng attempt thì đang chưa có cách migrate sang hệt thống mới 
