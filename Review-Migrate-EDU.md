@@ -87,11 +87,13 @@ WHERE confirmed = '1'
 
 ### Password
 
-- Moodle dùng `PASSWORD_DEFAULT` → `PASSWORD_BCRYPT`
-- Verify dựa vào prefix hash (`$2y$...`)
-- Docs:
-  - https://www.php.net/manual/en/function.password-hash.php  
-  - https://www.php.net/manual/en/function.password-verify.php  
+- Password hashing functions được PHP Core cung cấp:
+  - Thuật toán: PASSWORD_BCRYPT, PASSWORD_ARGON2I, PASSWORD_ARGON2ID
+  - moodle đang sử dụng PASSWORD_DEFAULT: từ php > 5.5 => sẽ là PASSWORD_DEFAULT = PASSWORD_BCRYPT
+  - php doc: https://www.php.net/manual/en/function.password-hash.php
+- Password verify functions được PHP Core cung cấp:
+  - function sẽ dựa vào các ký tự đầu có format như: $2y$10$4........ để phân biệt mà verify theo thuật toán nào
+  - php doc: https://www.php.net/manual/en/function.password-verify.php
 
 ---
 
