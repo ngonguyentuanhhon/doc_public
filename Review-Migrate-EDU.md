@@ -1,0 +1,274 @@
+# Review Migrate EDU
+
+## I. Mục tiêu & phạm vi
+
+### 1. Mục tiêu
+
+- Chuyển đổi toàn bộ dữ liệu học tập từ hệ thống **edu.vtc.vn (Moodle 4.2)** sang hệ thống mới **EduCore (microservice)**.
+- Đảm bảo:
+  - Không mất dữ liệu quan trọng.
+  - Giữ được:
+    - Dữ liệu khóa học  
+    - Tài khoản  
+    - Dữ liệu học tập (hoàn thành, bài học, điểm, chứng chỉ)
+
+### 2. Phạm vi
+
+#### Bao gồm
+
+- **Tài khoản người dùng**
+  - Học viên  
+  - Mật khẩu  
+  - Nhóm/khóa học viên  
+  - Chức danh  
+
+- **Khóa học**
+  - Lĩnh vực khóa học  
+  - Khóa học  
+  - Bài học  
+  - Phôi chứng chỉ  
+  - Cấu hình hoàn thành:
+    - Khóa học  
+    - Bài học  
+    - Chứng chỉ  
+
+- **Dữ liệu học tập**
+  - Đăng ký khóa học  
+  - Bài học: điểm, thông tin hoàn thành  
+  - Khóa học: điểm, thông tin hoàn thành  
+  - Chứng chỉ khóa học  
+
+#### Không bao gồm (nếu có)
+
+- Log hệ thống cũ
+
+---
+
+## II. Kịch bản migrate
+
+- `moodle.cohort` → **Đơn vị Tennal**
+  - Danh sách user trong cohort → **Customer của Tennal**
+  - Danh sách khóa học user được đăng ký:
+    - Lấy lĩnh vực khóa học → **Chương trình học**
+      - Khóa học trong lĩnh vực → **Khóa học trong chương trình**
+        - Bài học → **Bài học trong chương trình**
+
+---
+
+## III. Plan
+
+### 1. Tài khoản người dùng
+
+| Edu Moodle | Edu Core |
+|-------------|-----------|
+| cohort | Tenants |
+| user_info.parent_department | Groups |
+| user.department | JobTitles |
+| user | Customers |
+
+- Tổng số account active: **> 353,418**
+
+```sql
+SELECT count(id) 
+FROM mdl_user 
+WHERE confirmed = '1' 
+  AND deleted = '0' 
+  AND suspended = '0';
+```
+
+#### Mapping
+
+- `cohort` → `Tenants`
+- `parent_department` → `Groups`
+- `department` → `JobTitles`
+- `user` → `Customers`
+
+---
+
+### Password
+
+- Moodle dùng `PASSWORD_DEFAULT` → `PASSWORD_BCRYPT`
+- Verify dựa vào prefix hash (`$2y$...`)
+- Docs:
+  - https://www.php.net/manual/en/function.password-hash.php  
+  - https://www.php.net/manual/en/function.password-verify.php  
+
+---
+
+### 1.1 Cohort → Tenants
+
+| Moodle | EduCore |
+|--------|---------|
+| name | Name |
+| idnumber | Code |
+
+---
+
+### 1.2 Parent Department → Groups
+
+| Moodle | EduCore |
+|--------|---------|
+| user_info.parent_department.value | Name |
+
+---
+
+### 1.3 Department → JobTitles
+
+| Moodle | EduCore |
+|--------|---------|
+| user.department | Name |
+
+---
+
+### 1.4 User → Customers
+
+#### Thông tin tài khoản
+
+| Moodle | EduCore |
+|--------|---------|
+| username | Username |
+| password | Password |
+| idnumber | IdNumber |
+| firstname, lastname | Name |
+| email | Email |
+| phone1 | PhoneNumber |
+| institution | (chưa có) |
+| address | Address |
+| city | Province |
+| profile.dateofbirth | Birthday |
+| profile.gender | Gender |
+
+#### Avatar
+
+- Lấy từ `mdl_files` với `id = user.picture`
+- Upload lại qua API
+
+---
+
+### Quan hệ học viên
+
+- `Customers.TenantId`
+- `CustomerGroups`
+- `CustomerJobTitles`
+
+---
+
+### SSO Profile
+
+#### Google / Facebook (OAuth2)
+
+| Moodle | EduCore |
+|--------|---------|
+| username | Name |
+| email | ProviderId |
+| oauth2_issuer.name | Provider |
+
+> Moodle chỉ linked bằng email, chưa có providerId.
+
+---
+
+#### MyVTC
+
+| Moodle | EduCore |
+|--------|---------|
+| accountid | ProviderId |
+| "myvtc" | Provider |
+| fullname | Name |
+| linkavatar | Avatar |
+
+---
+
+#### Zalo
+
+| Moodle | EduCore |
+|--------|---------|
+| accountid | ProviderId |
+| "zalo" | Provider |
+| accountfullname | Name |
+| accountlinkavatar | Avatar |
+
+---
+
+## 2. Khóa học
+
+### 2.2 Lĩnh vực khóa học
+
+- `course_categories` (depth = 2, visible = 1)
+
+| Moodle | EduCore |
+|--------|---------|
+| idnumber | Code |
+| name | Title |
+| description | Description |
+
+Ảnh:
+- `component = course`
+- `filearea = category`
+
+---
+
+### 2.3 Khóa học
+
+| Moodle | EduCore |
+|--------|---------|
+| fullname | Title |
+| shortname | Shortname |
+| idnumber | Code |
+| summary | Description |
+
+Ảnh:
+- `filearea = overviewfiles`
+
+---
+
+### 2.4 Bài học
+
+| Module | Số lượng |
+|--------|---------|
+| scorm | 370 |
+| resource | 317 |
+| quiz | 122 |
+| customcert | 52 |
+| url | 41 |
+| forum | 39 |
+| feedback | 12 |
+| zoom | 3 |
+| assign | 2 |
+| page | 1 |
+| book | 1 |
+| label | 1 |
+
+#### Quiz
+
+- Các loại:
+  - Multiple choice  
+  - True/False  
+  - Matching  
+  - Short answer  
+  - Essay  
+  - Cloze  
+
+> Thực tế dùng nhiều: **Multiple choice, All-or-Nothing, True/False**
+
+---
+
+### 2.5 Phôi chứng chỉ
+
+- Sử dụng phôi mới
+
+---
+
+### 2.6 Cấu hình hoàn thành
+
+- Khóa học  
+- Bài học  
+- Chứng chỉ  
+
+---
+
+## 3. Dữ liệu học tập
+
+- Đăng ký khóa học
+- Bài học: điểm, hoàn thành
+- Khóa học: điểm, hoàn thành
+- Chứng chỉ khóa học
