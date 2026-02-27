@@ -239,7 +239,7 @@ WHERE confirmed = '1'
 | label | 1 |
 
 #### Quiz
-
+- Type: Multiple choice, True/False, Matching, Short answer, Numerical, Essay, All-or-Nothing Multiple Choice, Calculated, Calculated multichoice, Calculated simple, Drag and drop into text, Drag and drop markers, Drag and drop onto image, Embedded answers (Cloze), Random short-answer matching, Select missing words
 - Các loại Check trên DB đang dùng:
   - Multiple choice  
   - True/False  
