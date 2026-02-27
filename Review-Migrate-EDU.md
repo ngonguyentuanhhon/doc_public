@@ -69,11 +69,7 @@
 - Tổng số account active: **> 353,418**
 
 ```sql
-SELECT count(id) 
-FROM mdl_user 
-WHERE confirmed = '1' 
-  AND deleted = '0' 
-  AND suspended = '0';
+SELECT count(id) FROM mdl_user WHERE confirmed = '1' AND deleted = '0' AND suspended = '0';
 ```
 
 #### Mapping
