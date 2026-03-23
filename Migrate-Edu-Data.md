@@ -119,38 +119,67 @@
         - *Cert:* Chứng nhận hoàn thành khóa học [em_course_module_id=3174](https://adedu.vtc.vn/mod/customcert/view.php?id=3174)
 
 
-> 3 Category / 10 Course / 29 Bài học
-    
-> Các module:
-> - Scorm
-> - Quiz
-> - Url => EduCore chưa có
-> - resource video => EduCore chưa có
-> - feedback => EduCore chưa có , nhận thấy có thể bỏ qua migrate
-> - Cert => cert sẽ được migration riêng thành chứng chỉ khóa học EduCore
- 
-### Cohort
-- Văn hóa doanh nghiệp VTC: 927 user
-  - Cơ quan tổng công ty
-  - VTC Intecom
-  - VTC Digicom
-  - VTC Digital
-  - VTC Pay
-  - VTC Comtech
-  - VTC Mobile
-  - NetViet
-  - VTC Online
-  - VTC Cloud
-  - Viện Giáo dục và Đào tạo số
-- An toàn vệ sinh Lao động: 950 user
-  - ATLĐ_VTC_2015
-- Lĩnh vực Công đoàn Thông tin & Truyền thông: 18657 user
-  - tctvtcdot1 
-  - tctvtcdot2 
-  - vtcdot3 
-  - ... rất kiều nhóm cả thuộc vtc và ko
+[//]: # (> 3 Category / 10 Course / 29 Bài học)
 
+[//]: # (    )
+[//]: # (> Các module:)
 
-> User <= 1000 
+[//]: # (> - Scorm)
 
-> Đánh giá: lấy nhóm ATLĐ_VTC_2015 là cover được hết các nhóm trên (đã tham khảo chị ngọc)
+[//]: # (> - Quiz)
+
+[//]: # (> - Url => EduCore chưa có)
+
+[//]: # (> - resource video => EduCore chưa có)
+
+[//]: # (> - feedback => EduCore chưa có , nhận thấy có thể bỏ qua migrate)
+
+[//]: # (> - Cert => cert sẽ được migration riêng thành chứng chỉ khóa học EduCore)
+
+[//]: # ( )
+[//]: # (### Cohort)
+
+[//]: # (- Văn hóa doanh nghiệp VTC: 927 user)
+
+[//]: # (  - Cơ quan tổng công ty)
+
+[//]: # (  - VTC Intecom)
+
+[//]: # (  - VTC Digicom)
+
+[//]: # (  - VTC Digital)
+
+[//]: # (  - VTC Pay)
+
+[//]: # (  - VTC Comtech)
+
+[//]: # (  - VTC Mobile)
+
+[//]: # (  - NetViet)
+
+[//]: # (  - VTC Online)
+
+[//]: # (  - VTC Cloud)
+
+[//]: # (  - Viện Giáo dục và Đào tạo số)
+
+[//]: # (- An toàn vệ sinh Lao động: 950 user)
+
+[//]: # (  - ATLĐ_VTC_2015)
+
+[//]: # (- Lĩnh vực Công đoàn Thông tin & Truyền thông: 18657 user)
+
+[//]: # (  - tctvtcdot1 )
+
+[//]: # (  - tctvtcdot2 )
+
+[//]: # (  - vtcdot3 )
+
+[//]: # (  - ... rất kiều nhóm cả thuộc vtc và ko)
+
+[//]: # ()
+[//]: # ()
+[//]: # (> User <= 1000 )
+
+[//]: # ()
+[//]: # (> Đánh giá: lấy nhóm ATLĐ_VTC_2015 là cover được hết các nhóm trên &#40;đã tham khảo chị ngọc&#41;)
