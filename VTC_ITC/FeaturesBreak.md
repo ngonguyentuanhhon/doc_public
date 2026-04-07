@@ -74,7 +74,7 @@ Dựa vào biên bản, gom nhóm và phân tích các yêu cầu mà VTC-ITC mo
 > - các tính năng quản lý, editor học liệu em đánh giá là đang khá đủ dùng
 > - issue: chưa có cấu hình, setting điểm cho từng loại bài học 
 >   + hiện nano chưa có đang fix cững điểm
->   + scorm thì có thể áp dụng luôn điểm của học liệu
+>   + scorm thì có thể áp dụng luôn điểm của học liệu => cái này bên sản xuất phải handle thêm
 
 ### 5. Kiểm tra, đánh giá khóa học
 **Yêu cầu:**
