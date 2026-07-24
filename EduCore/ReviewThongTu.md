@@ -55,8 +55,8 @@
    >   - mục này em thấy cũng cần nên có các kênh tương tác học viên , giảng viên, nhà trường: forum, điễn đàn, bình luận, thống báo, góp ý - phản ảnh - khiếu nại, ...
    >   - kênh học trực tuyến giáo viên học viên có thể tương tác : zoom , livestream ... 
    > - Agent hỗ trợ học tập:
-   >   - cái này nếu là ở góc nhìn của cơ sở đào tạo thì em thấy có quá nhiều thứ để khai thác, nhưng ko đánh giá được cái nào nên triển khai
-   >   - Triển khai một AI Agent chuyên biệt (sử dụng tài liệu nội bộ của trường) để tự động giải đáp, hướng dẫn thủ tục hành chính, lộ trình tín chỉ và cung cấp tài liệu môn học, giúp giảm tải đáng kể cho bộ phận giáo vụ. 
+   >   - cái này nếu là ở góc nhìn của cơ sở đào tạo thì em thấy có quá nhiều thứ để khai thác, nhưng ko đánh giá được cái nào cần và nên triển khai
+   >   - Triển khai một AI Agent chuyên biệt (sử dụng tài liệu nội bộ của trường) để tự động giải đáp, hướng dẫn thủ tục hành chính, lộ trình tín chỉ và cung cấp tài liệu môn học, giúp giảm tải đáng kể cho bộ phận giáo vụ ... 
 
 
 
