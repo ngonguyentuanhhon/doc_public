@@ -63,5 +63,5 @@
 > Nhận xét chung: 
 > - theo góc nhìn hệ thống để phục vụ cho cơ sở đào tạo chính quy như: trung cấp , cao đẳng , ... em nghĩ nên forcus bổ sung vào 2 nhóm tính năng chính: 
 >   - [Nhóm chức năng Quản trị & Dịch vụ hành chính số](#nhóm-chức-năng-quản-trị-&-dịch-vụ-hành-chính-số) 
->   - [Nhóm chức năng Hỗ trợ người học cho cơ sở đào đạo](#nhóm-chức-năng-Hỗ-trợ-người-học-cho-cơ-sở-đào-đạo:) 
+>   - [Nhóm chức năng Hỗ trợ người học cho cơ sở đào đạo](#nhóm-chức-năng-Hỗ-trợ-người-học-cho-cơ-sở-đào-đạo) 
 > - Các tính năng cụ thể chắc phải break 2 nhòm này sâu hơn
