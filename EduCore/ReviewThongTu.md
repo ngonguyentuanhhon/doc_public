@@ -59,6 +59,8 @@
    >   - Triển khai một AI Agent chuyên biệt (sử dụng tài liệu nội bộ của trường) để tự động giải đáp, hướng dẫn thủ tục hành chính, lộ trình tín chỉ và cung cấp tài liệu môn học, giúp giảm tải đáng kể cho bộ phận giáo vụ ... 
 
 
+---
+
 
 > Nhận xét chung: 
 > - theo góc nhìn hệ thống để phục vụ cho cơ sở đào tạo chính quy như: trung cấp , cao đẳng , ... em nghĩ nên forcus bổ sung vào 2 nhóm tính năng chính: 
