@@ -64,7 +64,4 @@
 
 ### 2. Detail
 #### 2.1. [lms theo tài khoản được cấp](https://lmshub.hou.edu.vn/)
-
-[khóa họ của tôi](resource/Screenshot_2026-07-28_163754.png)
-
-<img src="resource/Screenshot_2026-07-28_163754.png" width="200">
+<img src="resource/Screenshot_2026-07-28_163754.png">
