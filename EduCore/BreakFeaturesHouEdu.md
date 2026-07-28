@@ -64,4 +64,18 @@
 
 ### 2. Detail
 #### 2.1. [lms theo tài khoản được cấp](https://lmshub.hou.edu.vn/)
-<img src="resource/Screenshot_2026-07-28_163754.png">
+##### a. Ảnh minh họa
+  - [khóa học của tôi](resource/Screenshot_2026-07-28_163754.png)
+  - [khóa học](resource/img.png)
+  - [forum](resource/img1.png)
+
+##### b. Cấu trúc khóa học 
+  - Khóa học ( course )
+    - forum, diễn đàn ( forum )
+    - Lịch học từng tuần ( section: group các module )
+      - Bài học: ( module )
+        - scorm
+        - quiz
+        - resource file: doc, pdf, audio, video 
+        - url: link google meet ( lớp học trực tuyến v class), link tài liệu, ...
+        - tự luận: up link file driver, file
