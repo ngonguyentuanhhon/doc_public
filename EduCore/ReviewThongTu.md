@@ -1,4 +1,4 @@
-### THÔNG TƯ: Quy định ứng dụng công nghệ trong giáo dục đại học, giáo dục nghề nghiệp
+### [THÔNG TƯ: Quy định ứng dụng công nghệ trong giáo dục đại học, giáo dục nghề nghiệp](./EduCore/thongtu.pdf)
 
 ---
 ---
