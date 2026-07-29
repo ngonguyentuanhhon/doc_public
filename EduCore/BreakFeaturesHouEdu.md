@@ -106,6 +106,7 @@
         - url: link google meet, link tài liệu, ...
         - BigBlueButton: phòng học trực tuyến
         - tự luận: up link file driver, file
+        - ...
     - Danh sách học viên
     - Điểm số
 
@@ -156,7 +157,7 @@
 ---
 
 ##### b. Cấu trúc khóa học
-- Danh mục ( category )
+- Danh mục ( category nhiều cấp )
   - Khóa học ( course )
     - Lịch học ( section )
       - Bài học ( module )
@@ -325,7 +326,7 @@
 ---
 ---
 
-#### 7. [Site tin tức, giới thiệu](https://hou.edu.vn/)
+#### 7. [Site landping page, tin tức, giới thiệu](https://hou.edu.vn/)
 
 - ảnh 
   - [trang chủ](resource/sub1/img_15.png)
@@ -335,4 +336,18 @@
 ---
 ---
 
-.
+### II. Tổng kết 
+- Từ việc trải nghiệm nền tảng của trường đại học mở em có 1 số đánh giá và nhận xét sau 
+  - Overview: trường đang khá bám sát vào [Thông Tư](resource/thongtu.pdf) để break ra các menu chức năng cũng như các service con, dàn trải đủ các keywork tính năng mà thông tư có nhắc đến.
+    - _mặc dù 1 số service và tính năng đang ko hoạt động được_
+    - _hoặc tài khoàn hiện tại ko dùng được các tính năng đó_
+    - _hoặc là chỉ show title_
+  - LMS: các service lms của trường hiện đang sử dụng Moodle Platform và đa phần Educore đều đang có thể đáp ứng
+    - EduCore đang chưa có so với Trường mở đang vận hành:
+      - EduCore đang thiếu quản lý danh mục chương trình nhiều cấp 
+      - phòng học trực tuyến BigBlueButton
+        - _có tính năng khá hay là học viên xem lại bản recording có thể tua bài giảng theo slide_
+  - Một số service vệ tính đánh giá là khá quan trọng khi áp dụng kế thống cho trường
+    - [Cổng thông tin sinh viên](http://sinhvien.hou.edu.vn/)
+    - [HỆ THỐNG CÁC KHÓA HỌC MỞ MIỄN PHÍ ( link: Hướng dẫn sử dụng )](https://oer.hou.edu.vn/)
+    - [Site landping page, tin tức, giới thiệu](https://hou.edu.vn/)
