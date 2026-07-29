@@ -342,7 +342,8 @@
     - _mặc dù 1 số service và tính năng đang ko hoạt động được_
     - _hoặc tài khoàn hiện tại ko dùng được các tính năng đó_
     - _hoặc là chỉ show title_
-  - LMS: các service lms của trường hiện đang sử dụng Moodle Platform và đa phần Educore đều đang có thể đáp ứng
+  - LMS: các service lms của trường hiện đang sử dụng Moodle Platform.
+    - Đa phần Educore đều đang có thể đáp ứng các tính năng trường đang sử dụng
     - EduCore đang chưa có so với Trường mở đang vận hành:
       - EduCore đang thiếu quản lý danh mục chương trình nhiều cấp 
       - phòng học trực tuyến BigBlueButton
