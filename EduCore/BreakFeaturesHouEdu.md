@@ -74,11 +74,11 @@
 ---
 
 ##### a. Tổng quan
-- Ảnh mình họa
+- **Ảnh mình họa**
   - [khóa học của tôi](resource/Screenshot_2026-07-28_163754.png)
   - [khóa học](resource/img.png)
   - [forum](resource/img1.png)
-- Note:
+- **Note:**
   - Lms được lấy cùng thông tin tài khoản
 
 ---
@@ -112,7 +112,7 @@
     - Danh sách học viên
     - Điểm số
 
-> Note: Cấu trúc khóa học được chia thành 3 cấp
+> **Note:** Cấu trúc khóa học được chia thành 3 cấp
 > - cousre ( khóa học ) > section ( lịch học ) > module ( bài học, bài kiểm tra )
 > - Loại bài học trực tuyến hiện đang thấy sử dụng 2 loại
 >   - link google meet
@@ -120,7 +120,6 @@
 >     - [bản recording example](https://bbb1.hou.edu.vn/playback/presentation/2.3/88b36ce0c19973a19724b185fe86e567127e5989-1783506995794)
 >     - 1 mã nguồn mở cung cấp giải pháp họp trực tuyến giống zoom có thể tự selfhost hoặc SaaS
 >     - có thể Recording theo slide bài giảng
-
  
 
 ---
@@ -135,7 +134,7 @@
 | module quiz ( bài kiểm tra )   | assessment ( bài kiểm tra )   |
 | ---                            | exams ( bài thi )             |
 
-> Note:
+> **Note:**
 > - EduCore hoàn toàn có thể đáp ứng được cấu trúc bài học như lms này
 > - EduCore còn có thể linh hoạt hơn với exams có thể không nằm trong lịch học
 
@@ -147,10 +146,10 @@
 ---
 
 ##### a. Tổng quan
-- Ảnh minh họa:
+- **Ảnh minh họa:**
   - [danh mục khóa học](resource/sub1/img.png)
   - [khóa học](resource/sub1/img_1.png)
-- Note:
+- **Note:**
   - Lms này đươc truy cập từ menu **"liên kết nội bộ"** trong lms ở [mục 1](#1-lms-theo-tài-khoản-được-cấp)
   - có thêm cấp danh mục khóa học
   - các khóa học trong lms tài khoản hiện tại đang ko có quyền học
@@ -164,7 +163,7 @@
     - Lịch học ( section )
       - Bài học ( module )
 
-> Note: Cấu trúc khóa học được chia thành 3 cấp
+> **Note:** Cấu trúc khóa học được chia thành 3 cấp
 > - category ( danh mục ) >  course ( khóa học ) > section ( lịch học ) > module ( bài học, bài kiểm tra )
 
 ---
@@ -182,7 +181,7 @@
 | ---                            | exams ( bài thi )             |
 
 
-> Note:
+> **Note:**
 > - EduCore đang thiếu cấp danh mục khóa học
 
 ---
@@ -193,21 +192,22 @@
 ---
 
 ##### a. Tổng quan
-- Ảnh minh họa:
- - Trang chủ
-   - [trang chủ 1](resource/sub1/img_2.png)
-   - [trang chủ 2](resource/sub1/img_3.png)
- - Danh mục khóa học
-   - [Danh mục khóa học](resource/sub1/img_7.png)
-   - [danh sách khóa học theo danh mục](resource/sub1/img_7.png)
- - Khóa học:
-   - [khóa học 1](resource/sub1/img_4.png)
-   - [khóa học 2](resource/sub1/img_5.png)
-   - [khóa học 3](resource/sub1/img_6.png)
-- Note:
-  - lms này danh riêng cho các khóa học miễn phí
-  - học viên có thể tự đăng ký tài khoản hoặc login bằng tk trường đã cấp ở [lms mục 1](#1-hệ-thống-đào-tạo-trực-tuyến-trường-đại-học-mở-hà-nội---houlms--lms-theo-tài-khoản-)
-  - học viên có thể tự đăng ký tham gia vào khóa học mong muốn
+- **Ảnh minh họa:**
+  - Trang chủ
+    - [trang chủ 1](resource/sub1/img_2.png)
+    - [trang chủ 2](resource/sub1/img_3.png)
+  - Danh mục khóa học
+    - [Danh mục khóa học](resource/sub1/img_7.png)
+    - [danh sách khóa học theo danh mục](resource/sub1/img_7.png)
+  - Khóa học:
+    - [khóa học 1](resource/sub1/img_4.png)
+    - [khóa học 2](resource/sub1/img_5.png)
+    - [khóa học 3](resource/sub1/img_6.png)
+   
+> **Note:**
+> - lms này danh riêng cho các khóa học miễn phí
+> - học viên có thể tự đăng ký tài khoản hoặc login bằng tk trường đã cấp ở [lms mục 1](#1-hệ-thống-đào-tạo-trực-tuyến-trường-đại-học-mở-hà-nội---houlms--lms-theo-tài-khoản-)
+> - học viên có thể tự đăng ký tham gia vào khóa học mong muốn
 ---
 
 ##### b. Cấu trúc khóa học
@@ -216,7 +216,7 @@
     - Nhóm bài học ( section )
       - Bài học ( module )
 
-> Note: Cấu trúc khóa học được chia thành 3 cấp
+> **Note:** Cấu trúc khóa học được chia thành 3 cấp
 > - category ( danh mục ) >  course ( khóa học ) > section ( Nhóm bài học ) > module ( bài học, bài kiểm tra )
 
 ---
@@ -234,7 +234,7 @@
 | ---                            | exams ( bài thi )             |
 
 
-> Note:
+> **Note:**
 > - EduCore đang thiếu cấp danh mục khóa học
 
 ---
@@ -247,9 +247,9 @@
 
 #### 1. [Cổng thông tin sinh viên](http://sinhvien.hou.edu.vn/)
 ##### a. Tổng quan
-- Ảnh:
+- **Ảnh:**
   - [anh tổng quan](resource/sub1/img_8.png)
-- Menu:
+- **Menu:**
   - Sơ yêu lý lịch
   - chương trình đào tạo
   - Cảnh báo học vụ
@@ -272,18 +272,19 @@
   - đánh giá giảng viên
   - gửi ý kiến
 
-> Note:
+> **Note:**
 > - Cổng thông tin sinh viên (Student Portal) là hệ thống cung cấp các dịch vụ học tập và hành chính trực tuyến cho sinh viên, tích hợp các chức năng như đăng ký học phần, tra cứu điểm, học phí, lịch học, lịch thi và quản lý hồ sơ cá nhân.
 > - Nhận thấy service này khá quan trọng là kênh tương tác giữa học viên và quản lý nhà trường
+> - Có khá nhiều menu tính năng: hiện ko sử dụng được hoặc tài khoản ko sử dụng được các tính năng này hoặc chỉ đang show meta data => nên chưa đánh giá được nhiều và đào sâu hơn.
 ---
 ---
 
 #### 2. [Cổng thông tin thư viện](http://thuvien.hou.edu.vn/)
 ##### a. Tổng quan
-- Ảnh:
+- **Ảnh:**
   - [trang chủ](resource/sub1/img_9.png)
 
-> Note:
+> **Note:**
 > - Thư viện điện tử cho sinh viên tra cứu tài liệu, bái chí bài viết các ngành học
 > - hiện cảm giác như đang lỗi ko dùng được 
 
@@ -293,16 +294,16 @@
 #### 3. [Hệ thống đánh giá rèn luyện](https://renluyen.hou.edu.vn/)
 [anh minh hoa](resource/sub1/img_11.png)
 
-> Note:
+> **Note:**
 > - hiện truy cập vào ko có nội dung gì
 ---
 ---
 
 #### 4. [Hệ thống khảo sát trực tuyến](http://survey.hou.edu.vn/)
-- Ảnh:
+- **Ảnh:**
   - [trang chủ](resource/sub1/img_13.png)
 
-> note:
+> **note:**
 > - hệ thống để khảo sát sinh viên 
 > - tài khoản hiện tại đang báo: "Bạn không nằm trong danh sách được thực hiện khảo sát." -> chưa sử dụng được
 
@@ -313,7 +314,7 @@
 - ảnh: 
   - [trang chủ](resource/sub1/img_14.png)
 
-> Note:
+> **Note:**
 > - hệ thống lưu trữ học liệu
 > - tài khoản hiện tại cũng đang ko sủ dụng được
 ---
@@ -321,7 +322,7 @@
 
 #### 6. [Hệ thống quản lý xét tốt nghiệp](http://totnghiep.hou.edu.vn/)
 
-> Note:
+> **Note:**
 > - Hệ thống quản lý xét tốt nghiệp
 > - tài khoản hiện tại cũng đang ko sủ dụng được
 
@@ -333,7 +334,7 @@
 - ảnh 
   - [trang chủ](resource/sub1/img_15.png)
 
-> Note:
+> **Note:**
 > - site tin tức, thông báo của trường
 ---
 ---
