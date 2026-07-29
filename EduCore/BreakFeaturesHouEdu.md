@@ -103,7 +103,8 @@
         - scorm
         - quiz
         - resource file: doc, pdf, audio, video 
-        - url: link google meet ( lớp học trực tuyến ), link tài liệu, ...
+        - url: link google meet, link tài liệu, ...
+        - BigBlueButton: phòng học trực tuyến
         - tự luận: up link file driver, file
     - Danh sách học viên
     - Điểm số
