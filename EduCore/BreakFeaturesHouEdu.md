@@ -104,7 +104,9 @@
         - quiz
         - resource file: doc, pdf, audio, video 
         - url: link google meet, link tài liệu, ...
-        - BigBlueButton: phòng học trực tuyến
+        - phòng học trực tuyến
+          - link google meet
+          - BigBlueButton
         - tự luận: up link file driver, file
         - ...
     - Danh sách học viên
