@@ -113,7 +113,12 @@
 > - cousre ( khóa học ) > section ( lịch học ) > module ( bài học, bài kiểm tra )
 > - Loại bài học trực tuyến hiện đang thấy sử dụng 2 loại
 >   - link google meet
->   - BigBlueButton: [bản recording example](https://bbb1.hou.edu.vn/playback/presentation/2.3/88b36ce0c19973a19724b185fe86e567127e5989-1783506995794)
+>   - BigBlueButton: 
+>     - [bản recording example](https://bbb1.hou.edu.vn/playback/presentation/2.3/88b36ce0c19973a19724b185fe86e567127e5989-1783506995794)
+>     - 1 mã nguồn mở cung cấp giải pháp họp trực tuyến giống zoom có thể tự selfhost hoặc SaaS
+>     - có thể Recording theo slide bài giảng
+
+ 
 
 ---
 
@@ -266,7 +271,7 @@
 
 > Note:
 > - Cổng thông tin sinh viên (Student Portal) là hệ thống cung cấp các dịch vụ học tập và hành chính trực tuyến cho sinh viên, tích hợp các chức năng như đăng ký học phần, tra cứu điểm, học phí, lịch học, lịch thi và quản lý hồ sơ cá nhân.
-> 
+> - Nhận thấy service này khá quan trọng là kênh tương tác giữa học viên và quản lý nhà trường
 ---
 ---
 
