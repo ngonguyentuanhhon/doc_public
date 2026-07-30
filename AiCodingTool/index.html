@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI IDE & AI CLI - Ứng dụng Backend tại VTC Edu</title>
+
+    <!-- STREAMING_CHUNK:Loading Reveal.js and Tailwind CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/night.min.css" id="theme">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- STREAMING_CHUNK:Custom Styling for Overrides and Terminals -->
+    <style>
+        :root {
+            --r-main-font: 'Inter', sans-serif;
+            --r-heading-font: 'Inter', sans-serif;
+            --r-heading-text-transform: none;
+            --r-link-color: #06b6d4; /* Tailwind cyan-500 */
+            --r-link-color-hover: #22d3ee;
+            --r-selection-background-color: #06b6d4;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            font-weight: 800;
+        }
+
+        .reveal h1 { font-size: 2.5em; }
+        .reveal h2 { font-size: 1.8em; color: #38bdf8; } /* Tailwind sky-400 */
+        .reveal h3 { font-size: 1.3em; color: #94a3b8; }
+
+        .reveal p, .reveal li {
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        /* Flowchart styling */
+        .flow-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 30px;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: 600;
+            margin: 10px;
+            backdrop-filter: blur(5px);
+        }
+        .flow-arrow {
+            color: #38bdf8;
+            font-size: 1.5em;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+
+        /* Mock Terminal CSS */
+        .mock-terminal {
+            background-color: #0f172a;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            font-family: 'Fira Code', monospace;
+            text-align: left;
+            font-size: 0.65em;
+            line-height: 1.6;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 900px;
+            overflow: hidden;
+        }
+        .terminal-header {
+            background-color: #1e293b;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot.red { background-color: #ff5f56; }
+        .dot.yellow { background-color: #ffbd2e; }
+        .dot.green { background-color: #27c93f; }
+        .terminal-title {
+            margin-left: auto;
+            margin-right: auto;
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+        .terminal-body {
+            padding: 20px;
+            color: #cbd5e1;
+            max-height: 450px;
+            overflow-y: auto;
+        }
+        .t-prompt { color: #22d3ee; }
+        .t-cmd { color: #f8fafc; font-weight: bold; }
+        .t-success { color: #4ade80; }
+        .t-warn { color: #fbbf24; }
+        .t-comment { color: #64748b; font-style: italic; }
+
+        /* Layout Helpers */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+
+        <!-- STREAMING_CHUNK:Intro & Objectives -->
+        <!-- Bìa -->
+        <section>
+            <div class="mb-8">
+                <span class="px-4 py-2 bg-sky-500/20 text-sky-400 rounded-full text-lg font-semibold tracking-wider">VTC EDU INTERNAL SHARING</span>
+            </div>
+            <h1 class="mb-4">AI IDE & AI CLI</h1>
+            <h3>Kinh nghiệm ứng dụng trong phát triển Backend</h3>
+            <p class="mt-8 text-gray-400 text-lg">Chia sẻ kinh nghiệm sử dụng AI IDE và AI CLI</p>
+            <p class="text-gray-400 text-lg">trong quá trình phát triển Backend tại VTC Edu</p>
+        </section>
+
+        <!-- Mục tiêu -->
+        <section>
+            <h2>Mục tiêu buổi chia sẻ</h2>
+            <div class="text-left max-w-3xl mx-auto mt-8 bg-white/5 p-8 rounded-xl border border-white/10">
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-4">
+                        <span class="text-sky-400 text-2xl">🎯</span>
+                        <span>Hiểu bức tranh <strong>AI Coding</strong> hiện nay.</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <span class="text-sky-400 text-2xl">🛠</span>
+                        <span>Hiểu sự khác biệt và điểm mạnh của <strong>AI IDE</strong> và <strong>AI CLI</strong>.</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <span class="text-sky-400 text-2xl">🔄</span>
+                        <span>Biết workflow sử dụng AI hiệu quả trong phát triển Backend.</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <span class="text-sky-400 text-2xl">🚀</span>
+                        <span>Có thể áp dụng ngay vào công việc hằng ngày.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- STREAMING_CHUNK:Slide 1 - AI Landscape -->
+        <!-- Slide 1: AI Coding Hiện Nay -->
+        <section>
+            <section>
+                <h2>1. Bức tranh AI Coding hiện nay</h2>
+
+                <div class="mt-10 overflow-x-auto text-sm">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                        <tr class="border-b border-gray-600 bg-gray-800/50">
+                            <th class="p-3 text-sky-400">Nhóm</th>
+                            <th class="p-3">Mô tả</th>
+                            <th class="p-3 text-emerald-400">Ví dụ</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                        <tr class="border-b border-gray-700">
+                            <td class="p-3 font-bold text-white">Chat AI</td>
+                            <td class="p-3">Hoạt động độc lập. Dùng để hỏi đáp. Phải Copy/Paste giữa AI & IDE.</td>
+                            <td class="p-3">ChatGPT, Claude, Gemini</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 bg-white/5">
+                            <td class="p-3 font-bold text-white">AI Plugin</td>
+                            <td class="p-3">Tích hợp vào IDE hiện tại (autocomplete, chat). Phụ thuộc IDE gốc.</td>
+                            <td class="p-3">GitHub Copilot, Continue, Roo Code</td>
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="p-3 font-bold text-white">AI IDE</td>
+                            <td class="p-3">IDE thiết kế xoay quanh AI. AI là phần cốt lõi của môi trường.</td>
+                            <td class="p-3">Cursor, Windsurf, Antigravity IDE</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-white bg-sky-900/40">AI CLI</td>
+                            <td class="p-3 bg-sky-900/20">Hoạt động qua Terminal, độc lập IDE, linh hoạt kết hợp workflow.</td>
+                            <td class="p-3 bg-sky-900/20">Claude Code, Antigravity CLI</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 text-sm text-gray-400 text-center">
+                    <p>⬇ Bấm mũi tên xuống để xem Xu hướng phát triển</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Xu hướng phát triển</h2>
+                <div class="flex flex-col md:flex-row justify-center items-center mt-12 mb-12">
+                    <div class="flow-box">Chat AI</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">AI Plugin</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box bg-sky-900/50 border-sky-400/50">AI IDE</div>
+                    <div class="flow-arrow">/</div>
+                    <div class="flow-box bg-sky-900/50 border-sky-400/50">AI CLI</div>
+                </div>
+
+                <div class="bg-gray-800/80 p-6 rounded-lg border-l-4 border-sky-500 text-left max-w-4xl mx-auto">
+                    <h4 class="text-white mb-2 font-bold text-xl">💡 Thông điệp:</h4>
+                    <p class="text-gray-300 m-0">AI ngày càng tích hợp sâu vào quy trình, giúp giảm việc chuyển đổi ngữ cảnh (Context Switching), hiểu tốt hơn context của project, và tăng hiệu quả trong toàn bộ SDLC.</p>
+                </div>
+            </section>
+        </section>
+
+        <!-- STREAMING_CHUNK:Slide 2 & 3 - Why & Capabilities -->
+        <!-- Slide 2: Vì sao AI IDE & AI CLI -->
+        <section>
+            <h2>2. Vì sao lại là AI IDE & AI CLI?</h2>
+            <div class="grid-2 mt-8">
+                <!-- Before -->
+                <div class="bg-red-900/20 border border-red-500/30 rounded-xl p-6">
+                    <h3 class="text-red-400 mb-6">❌ Trước đây</h3>
+                    <div class="flex flex-col items-center text-sm opacity-80">
+                        <div class="p-2 border border-gray-500 rounded bg-gray-800 w-full">Requirement</div>
+                        <div class="text-red-400 py-1">↓</div>
+                        <div class="p-2 border border-gray-500 rounded bg-gray-800 w-full">ChatGPT</div>
+                        <div class="text-red-400 py-1">↓</div>
+                        <div class="p-2 border border-gray-500 rounded bg-gray-800 w-full">Copy</div>
+                        <div class="text-red-400 py-1">↓</div>
+                        <div class="p-2 border border-gray-500 rounded bg-gray-800 w-full">Paste vào IDE</div>
+                        <div class="text-red-400 py-1">↓</div>
+                        <div class="p-2 border border-red-500 rounded bg-red-900/30 w-full font-bold">Lặp lại mệt mỏi...</div>
+                    </div>
+                </div>
+
+                <!-- Now -->
+                <div class="bg-green-900/20 border border-green-500/30 rounded-xl p-6">
+                    <h3 class="text-green-400 mb-6">✅ Hiện nay</h3>
+                    <div class="flex flex-col items-center text-sm">
+                        <div class="p-2 border border-gray-500 rounded bg-gray-800 w-full">Requirement</div>
+                        <div class="text-green-400 py-1">↓</div>
+                        <div class="p-2 border border-green-500 rounded bg-green-900/30 w-full font-bold">AI ngay trong IDE/Terminal</div>
+                        <div class="text-green-400 py-1">↓</div>
+                        <div class="p-2 border border-gray-500 rounded bg-gray-800 w-full">Hiểu toàn bộ Project</div>
+                        <div class="text-green-400 py-1">↓</div>
+                        <div class="p-2 border border-gray-500 rounded bg-gray-800 w-full">Coding & Review</div>
+                        <div class="text-green-400 py-1">↓</div>
+                        <div class="p-2 border border-gray-500 rounded bg-gray-800 w-full">Testing</div>
+                    </div>
+                </div>
+            </div>
+            <blockquote class="mt-8 text-xl text-sky-300 italic border-l-4 border-sky-400 bg-sky-900/20 p-4">
+                "Đưa AI đến gần quy trình phát triển phần mềm hơn, thay vì chỉ là một cửa sổ chat."
+            </blockquote>
+        </section>
+
+        <!-- Slide 3: Khả năng -->
+        <section>
+            <h2>3. Khả năng của các AI Coding Tools</h2>
+            <div class="grid grid-cols-3 gap-4 mt-10 text-left text-sm max-w-4xl mx-auto">
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10 flex items-center gap-3"><span class="text-2xl">📝</span> Phân tích Requirement</div>
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10 flex items-center gap-3"><span class="text-2xl">📖</span> Giải thích source code</div>
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10 flex items-center gap-3"><span class="text-2xl">🏗️</span> Hiểu cấu trúc project</div>
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10 flex items-center gap-3"><span class="text-2xl">💻</span> Sinh code / Boilerplate</div>
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10 flex items-center gap-3"><span class="text-2xl">♻️</span> Refactor code cũ</div>
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10 flex items-center gap-3"><span class="text-2xl">👀</span> Review Pull Request</div>
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10 flex items-center gap-3"><span class="text-2xl">🧪</span> Sinh Unit Test</div>
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10 flex items-center gap-3"><span class="text-2xl">📚</span> Sinh Documentation</div>
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10 flex items-center gap-3"><span class="text-2xl">🤖</span> Agent Workflow & MCP</div>
+            </div>
+
+            <div class="mt-8 bg-gray-800/80 p-5 rounded-lg border-l-4 border-emerald-500 text-left max-w-4xl mx-auto">
+                <p class="text-emerald-400 font-bold mb-2">💡 Khác biệt không còn nằm ở khả năng của AI.</p>
+                <p class="text-gray-300 m-0">Khác biệt chủ yếu nằm ở: <strong>Cách tích hợp vào workflow</strong>, <strong>Trải nghiệm sử dụng</strong> và <strong>Triết lý thiết kế</strong> của từng công cụ.</p>
+            </div>
+        </section>
+
+        <!-- STREAMING_CHUNK:Slide 4 & 5 - IDE vs CLI & VTC Edu -->
+        <!-- Slide 4: So sánh -->
+        <section>
+            <h2>4. AI IDE vs AI CLI khác nhau ở đâu?</h2>
+            <div class="grid-2 mt-8 text-left">
+                <div class="bg-indigo-900/20 border border-indigo-500/30 rounded-xl p-6">
+                    <h3 class="text-indigo-400 mb-2 border-b border-indigo-500/30 pb-2">💻 AI IDE</h3>
+                    <p class="text-sm italic text-gray-400 mb-4">Triết lý: AI là một phần của IDE.</p>
+                    <ul class="text-sm space-y-3">
+                        <li>✅ IDE hoàn chỉnh, giao diện trực quan.</li>
+                        <li>✅ Nhiều tính năng được tích hợp sẵn.</li>
+                        <li>✅ Trải nghiệm liền mạch trong quá trình coding.</li>
+                        <li>⚠️ Thay thế IDE truyền thống (cần làm quen).</li>
+                    </ul>
+                </div>
+
+                <div class="bg-teal-900/20 border border-teal-500/30 rounded-xl p-6">
+                    <h3 class="text-teal-400 mb-2 border-b border-teal-500/30 pb-2">⌨️ AI CLI</h3>
+                    <p class="text-sm italic text-gray-400 mb-4">Triết lý: AI độc lập ở bất kỳ đâu có Terminal.</p>
+                    <ul class="text-sm space-y-3">
+                        <li>✅ Nhỏ gọn, tối giản, cực kỳ linh hoạt.</li>
+                        <li>✅ Không phụ thuộc & kết hợp được mọi IDE.</li>
+                        <li>✅ Dễ mở nhiều phiên làm việc song song.</li>
+                        <li>✅ Phù hợp hoàn hảo với automation workflow.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-gray-300 text-lg bg-white/5 py-3 rounded-lg border border-white/10">
+                <strong class="text-sky-400">Kết luận:</strong> Chúng không thay thế mà <strong>bổ trợ cho nhau</strong>, tùy vào thói quen và bài toán.
+            </div>
+        </section>
+
+        <!-- Slide 5: Tại VTC Edu -->
+        <section>
+            <h2>5. Cách sử dụng tại VTC Edu</h2>
+            <p class="text-gray-400 text-sm mb-6">Kết hợp cả hai công cụ cho công việc Backend.</p>
+
+            <div class="flex justify-center gap-12 mt-8">
+                <!-- Cột 1 -->
+                <div class="w-1/2 bg-white/5 rounded-xl p-6 border border-white/10 text-left">
+                    <h3 class="text-sky-400 flex items-center gap-2 mb-4">
+                        <span>Antigravity IDE</span>
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-3 uppercase tracking-wider font-bold">Thường dùng khi:</p>
+                    <ul class="text-lg space-y-2 text-gray-200 list-disc ml-5">
+                        <li>Coding tập trung</li>
+                        <li>Refactor code</li>
+                        <li>Explain Code nhanh</li>
+                        <li>Quick Fix lỗi Syntax/Logic</li>
+                    </ul>
+                </div>
+
+                <!-- Cột 2 -->
+                <div class="w-1/2 bg-white/5 rounded-xl p-6 border border-white/10 text-left">
+                    <h3 class="text-emerald-400 flex items-center gap-2 mb-4">
+                        <span>Antigravity CLI</span>
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-3 uppercase tracking-wider font-bold">Thường dùng khi:</p>
+                    <ul class="text-lg space-y-2 text-gray-200 list-disc ml-5">
+                        <li>Phân tích Requirement</li>
+                        <li>Phân tích toàn bộ Project</li>
+                        <li>Lập kế hoạch triển khai</li>
+                        <li>Review & Automation</li>
+                        <li>Chạy nhiều task song song</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="mt-6 text-sm text-gray-500 italic">* Workflow này cũng áp dụng tốt với Claude Code, Gemini CLI, Cursor, v.v.</p>
+        </section>
+
+        <!-- STREAMING_CHUNK:Slide 6 - Workflow -->
+        <!-- Slide 6: Workflow -->
+        <section>
+            <section>
+                <h2>6. Workflow đang sử dụng</h2>
+                <p class="text-gray-400 mb-8">AI không bắt đầu bằng Coding. Quy trình chuẩn:</p>
+
+                <div class="flex flex-wrap justify-center items-center max-w-4xl mx-auto">
+                    <div class="flow-box">Requirement</div> <div class="flow-arrow">→</div>
+                    <div class="flow-box border-sky-400 text-sky-300">AI Analysis</div> <div class="flow-arrow">→</div>
+                    <div class="flow-box border-sky-400 text-sky-300">AI Planning</div> <div class="flow-arrow">→</div>
+                    <div class="flow-box border-emerald-400 text-emerald-300 bg-emerald-900/30">Dev Review</div> <div class="flow-arrow">→</div>
+                    <div class="flow-box border-sky-400 text-sky-300">AI Coding</div> <div class="flow-arrow">→</div>
+                    <div class="flow-box border-emerald-400 text-emerald-300 bg-emerald-900/30">Dev Review</div> <div class="flow-arrow">→</div>
+                    <div class="flow-box">Testing</div> <div class="flow-arrow">→</div>
+                    <div class="flow-box">Merge</div>
+                </div>
+
+                <div class="mt-12 text-sm text-gray-400 text-center">
+                    <p>⬇ Bấm mũi tên xuống để xem Phân chia Vai trò</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Vai trò của AI và Developer</h2>
+
+                <div class="max-w-3xl mx-auto text-left mt-10 relative">
+                    <!-- Đường thẳng nối -->
+                    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-600"></div>
+
+                    <div class="flex items-start mb-6 relative">
+                        <div class="w-16 h-16 rounded-full bg-emerald-900 border-2 border-emerald-500 flex items-center justify-center text-2xl z-10 shrink-0">🧑‍💻</div>
+                        <div class="ml-6 bg-white/5 p-4 rounded-lg border border-white/10 w-full">
+                            <h4 class="text-emerald-400 m-0">Developer</h4>
+                            <p class="text-sm text-gray-300 m-0">Cung cấp Context & Requirement</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start mb-6 relative">
+                        <div class="w-16 h-16 rounded-full bg-sky-900 border-2 border-sky-500 flex items-center justify-center text-2xl z-10 shrink-0">🤖</div>
+                        <div class="ml-6 bg-white/5 p-4 rounded-lg border border-white/10 w-full">
+                            <h4 class="text-sky-400 m-0">AI</h4>
+                            <p class="text-sm text-gray-300 m-0">Phân tích Requirement & Đề xuất Kế hoạch</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start mb-6 relative">
+                        <div class="w-16 h-16 rounded-full bg-emerald-900 border-2 border-emerald-500 flex items-center justify-center text-2xl z-10 shrink-0">🧑‍💻</div>
+                        <div class="ml-6 bg-white/5 p-4 rounded-lg border border-white/10 w-full">
+                            <h4 class="text-emerald-400 m-0">Developer</h4>
+                            <p class="text-sm text-gray-300 m-0">Đánh giá & Quyết định chốt Plan</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start mb-6 relative">
+                        <div class="w-16 h-16 rounded-full bg-sky-900 border-2 border-sky-500 flex items-center justify-center text-2xl z-10 shrink-0">🤖</div>
+                        <div class="ml-6 bg-white/5 p-4 rounded-lg border border-white/10 w-full">
+                            <h4 class="text-sky-400 m-0">AI</h4>
+                            <p class="text-sm text-gray-300 m-0">Triển khai Coding theo đúng Plan</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start relative">
+                        <div class="w-16 h-16 rounded-full bg-emerald-900 border-2 border-emerald-500 flex items-center justify-center text-2xl z-10 shrink-0">🧑‍💻</div>
+                        <div class="ml-6 bg-white/5 p-4 rounded-lg border border-white/10 w-full">
+                            <h4 class="text-emerald-400 m-0">Developer</h4>
+                            <p class="text-sm text-gray-300 m-0">Kiểm tra (Review code, test) & Merge</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- STREAMING_CHUNK:Slide 7 - Practical Example with CLI Mockups -->
+        <!-- Slide 7: Ví dụ thực tế (Nhiều slide con) -->
+        <section>
+            <section>
+                <span class="text-sky-400 font-bold tracking-widest uppercase text-sm mb-2 block">Demo Case Study</span>
+                <h2>7. Ví dụ thực tế</h2>
+
+                <div class="bg-gray-800 p-8 rounded-xl border border-gray-600 mt-8 max-w-3xl mx-auto shadow-2xl">
+                    <h3 class="text-white flex items-center justify-center gap-3">
+                        <span class="bg-sky-500 text-white text-sm px-3 py-1 rounded-full uppercase">Task</span>
+                        Thêm API cập nhật Avatar cho User
+                    </h3>
+                    <p class="text-gray-400 mt-4">Sử dụng công cụ <strong>Antigravity CLI</strong> để thực hiện toàn bộ quy trình.</p>
+                </div>
+
+                <div class="mt-12 text-sm text-gray-400 text-center animate-bounce">
+                    <p>⬇ Bấm mũi tên xuống để xem từng bước</p>
+                </div>
+            </section>
+
+            <!-- BƯỚC 1 -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="m-0">Bước 1: Đưa Requirement</h3>
+                    <span class="bg-gray-700 px-3 py-1 rounded text-xs">1/5</span>
+                </div>
+
+                <!-- CSS Mock Terminal -->
+                <div class="mock-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                        </div>
+                        <div class="terminal-title">dev@vtcedu: ~/projects/api-backend</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div><span class="t-prompt">dev@vtcedu:~$</span> <span class="t-cmd">ag-cli task start "Thêm API cập nhật Avatar cho User" --context "Laravel 12, Repository Pattern, Service Pattern, Resource, Module User, MinIO Storage"</span></div>
+                        <br>
+                        <div class="t-comment"># Developer cung cấp thêm rules:</div>
+                        <div class="t-comment">> - Theo đúng Coding Convention dự án</div>
+                        <div class="t-comment">> - Chỉ cập nhật Avatar, không ảnh hưởng field khác.</div>
+                        <div class="t-comment">> - Không làm hỏng các API đang có.</div>
+                        <br>
+                        <div><span class="t-success">✔ Context loaded. Parsing requirements...</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BƯỚC 2 -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="m-0">Bước 2: Yêu cầu AI Phân tích</h3>
+                    <span class="bg-gray-700 px-3 py-1 rounded text-xs">2/5</span>
+                </div>
+
+                <div class="mock-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                        </div>
+                        <div class="terminal-title">ag-cli - Analysis Agent</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div><span class="t-prompt">ag-cli></span> <span class="t-cmd">analyze --output=plan</span></div>
+                        <br>
+                        <div class="text-sky-300 font-bold">📋 IMPLEMENTATION PLAN:</div>
+                        <div><span class="text-yellow-300">1. API Contract:</span> POST /api/users/avatar (multipart/form-data)</div>
+                        <div><span class="text-yellow-300">2. Validation:</span> mimes:jpeg,png,jpg,webp | max:2048</div>
+                        <div><span class="text-yellow-300">3. Storage Flow:</span> Xóa avatar cũ trên MinIO (nếu có) -> Upload file mới -> Lấy URL.</div>
+                        <div><span class="text-yellow-300">4. Database:</span> Cập nhật cột `avatar_url` thông qua UserRepository.</div>
+                        <div><span class="text-yellow-300">5. Module ảnh hưởng:</span> UserController, UserService, UserRepository, UserResource.</div>
+                        <br>
+                        <div class="t-warn">⚠️ Risk identified: Cần xử lý rollback Storage nếu DB transaction fail.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BƯỚC 3 -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="m-0">Bước 3: Developer Review Plan</h3>
+                    <span class="bg-gray-700 px-3 py-1 rounded text-xs">3/5</span>
+                </div>
+
+                <div class="bg-gray-800 p-6 rounded-lg text-left text-sm mb-4 border border-gray-600">
+                    <p class="text-emerald-400 font-bold mb-2">🧑‍💻 Developer chốt phương án:</p>
+                    <ul class="list-disc ml-5 space-y-1 text-gray-300">
+                        <li>Kiểm tra kĩ Storage Flow & Exception handling.</li>
+                        <li>Đảm bảo URL trả về đúng format CDN.</li>
+                        <li>Đồng ý với cấu trúc các file bị thay đổi.</li>
+                    </ul>
+                </div>
+
+                <div class="mock-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                        </div>
+                        <div class="terminal-title">ag-cli - Interactive</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div><span class="text-white">Do you approve this implementation plan? [Y/n]</span> <span class="t-success">Y</span></div>
+                        <br>
+                        <div><span class="text-white">Any additional instructions?</span> <span class="t-success">Nhớ catch Exception khi MinIO sập và throw custom ApiError.</span></div>
+                        <br>
+                        <div><span class="t-success">✔ Plan approved. Ready for coding phase.</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BƯỚC 4 -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="m-0">Bước 4: AI Coding</h3>
+                    <span class="bg-gray-700 px-3 py-1 rounded text-xs">4/5</span>
+                </div>
+
+                <div class="mock-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                        </div>
+                        <div class="terminal-title">ag-cli - Coding Agent</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div><span class="t-prompt">ag-cli></span> <span class="t-cmd">execute plan</span></div>
+                        <br>
+                        <div><span class="text-gray-400">⚙️ Generating code...</span></div>
+                        <div><span class="text-sky-300">📝 Updated</span> <span class="text-white">app/Http/Controllers/UserController.php</span></div>
+                        <div><span class="text-sky-300">📝 Updated</span> <span class="text-white">app/Services/UserService.php</span> <span class="text-gray-500">(Added transaction & rollback)</span></div>
+                        <div><span class="text-sky-300">📝 Updated</span> <span class="text-white">app/Repositories/UserRepository.php</span></div>
+                        <div><span class="text-green-400">✨ Created</span> <span class="text-white">app/Http/Requests/UpdateAvatarRequest.php</span></div>
+                        <br>
+                        <div><span class="t-success">✔ All files written successfully.</span></div>
+                        <div><span class="t-comment">Yêu cầu AI: Follow đúng Plan. Không sửa ngoài phạm vi Task.</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BƯỚC 5 -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="m-0">Bước 5: Developer Review & Merge</h3>
+                    <span class="bg-gray-700 px-3 py-1 rounded text-xs">5/5</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6 text-left">
+                    <div class="bg-white/5 p-5 rounded-lg border border-white/10">
+                        <h4 class="text-emerald-400 text-lg mb-3">🔍 Dev Review Checklist:</h4>
+                        <ul class="text-sm space-y-2 text-gray-300">
+                            <li>✅ Business Logic đúng chưa?</li>
+                            <li>✅ Validation chặt chưa?</li>
+                            <li>✅ Security (có check quyền user không?)</li>
+                            <li>✅ Xử lý Exception tốt chưa?</li>
+                            <li>✅ Coding Convention của team.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mock-terminal !m-0 !w-full">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                            </div>
+                            <div class="terminal-title">git review</div>
+                        </div>
+                        <div class="terminal-body !p-3 !text-[0.55em]">
+                            <div><span class="t-prompt">dev@vtcedu:~$</span> <span class="t-cmd">git diff --stat</span></div>
+                            <div> app/Http/Controllers/UserController.php   | 15 +++++</div>
+                            <div> app/Http/Requests/UpdateAvatarRequest.php | 28 +++++++++</div>
+                            <div> app/Services/UserService.php              | 40 ++++++++++++</div>
+                            <div> 3 files changed, 83 insertions(+)</div>
+                            <br>
+                            <div><span class="t-prompt">dev@vtcedu:~$</span> <span class="t-cmd">git commit -m "feat: add user avatar update api"</span></div>
+                            <div><span class="t-success">[feature/avatar-api 1a2b3c] feat: add user avatar update api</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- STREAMING_CHUNK:Slide 8 - Experience & Rules -->
+        <!-- Slide 8: Kinh nghiệm -->
+        <section>
+            <h2>8. Kinh nghiệm xương máu</h2>
+            <div class="grid grid-cols-2 gap-4 mt-8 text-left text-sm max-w-5xl mx-auto">
+                <div class="bg-white/5 p-5 rounded-xl border-l-4 border-sky-500">
+                    <h4 class="text-sky-400 mb-2 text-lg">🎯 Context > Prompt</h4>
+                    <p class="text-gray-400 mb-2">Đừng chỉ ra lệnh, hãy cung cấp bối cảnh:</p>
+                    <ul class="list-disc ml-5 text-gray-300">
+                        <li>Requirement rõ ràng</li>
+                        <li>Architecture đang dùng</li>
+                        <li>Coding Convention</li>
+                        <li>Business Rules & Constraints</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white/5 p-5 rounded-xl border-l-4 border-yellow-500">
+                    <h4 class="text-yellow-400 mb-2 text-lg">🛑 Review Plan trước khi Code</h4>
+                    <p class="text-gray-300">Không bao giờ yêu cầu AI viết code ngay lập tức. Hãy bắt nó lên kế hoạch và phân tích trước.</p>
+                </div>
+
+                <div class="bg-white/5 p-5 rounded-xl border-l-4 border-purple-500">
+                    <h4 class="text-purple-400 mb-2 text-lg">🧠 Kiểm soát Business Logic</h4>
+                    <p class="text-gray-300">AI chỉ hỗ trợ gen code & gợi ý. <strong>Developer</strong> mới là người quyết định luồng logic cuối cùng.</p>
+                </div>
+
+                <div class="bg-red-900/30 p-5 rounded-xl border-l-4 border-red-500">
+                    <h4 class="text-red-400 mb-2 text-lg">🔒 Bảo mật thông tin</h4>
+                    <p class="text-gray-400 mb-2">Tuyệt đối không đẩy cho AI:</p>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <span class="bg-red-900/50 px-2 py-1 rounded">.env</span>
+                        <span class="bg-red-900/50 px-2 py-1 rounded">Passwords</span>
+                        <span class="bg-red-900/50 px-2 py-1 rounded">API Keys</span>
+                        <span class="bg-red-900/50 px-2 py-1 rounded">Private Keys</span>
+                        <span class="bg-red-900/50 px-2 py-1 rounded">Production DB</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 bg-orange-900/40 border border-orange-500/50 text-orange-200 p-3 rounded-lg text-center font-bold">
+                Không Merge code sinh bởi AI nếu bạn chưa Review từng dòng! AI có thể sai, nhưng Developer chịu trách nhiệm cuối cùng.
+            </div>
+        </section>
+
+        <!-- STREAMING_CHUNK:Conclusion -->
+        <!-- Kết luận -->
+        <section>
+            <h2>Kết luận</h2>
+
+            <div class="my-8 text-center text-xl text-gray-300">
+                <p class="mb-4">AI giúp tăng tốc mọi khâu:</p>
+                <div class="flex justify-center gap-3 flex-wrap max-w-2xl mx-auto text-sm mb-8">
+                    <span class="px-3 py-1 bg-sky-900/50 rounded-full">Phân tích</span>
+                    <span class="px-3 py-1 bg-sky-900/50 rounded-full">Thiết kế</span>
+                    <span class="px-3 py-1 bg-sky-900/50 rounded-full">Coding</span>
+                    <span class="px-3 py-1 bg-sky-900/50 rounded-full">Review</span>
+                    <span class="px-3 py-1 bg-sky-900/50 rounded-full">Docs</span>
+                    <span class="px-3 py-1 bg-sky-900/50 rounded-full">Testing</span>
+                </div>
+            </div>
+
+            <blockquote class="text-2xl text-white font-bold bg-gradient-to-r from-sky-600 to-emerald-600 p-6 rounded-xl shadow-lg border border-white/20">
+                "AI không thay thế lập trình viên.<br>
+                <span class="text-sky-200 text-lg font-normal">Mà là người bạn đồng hành và trợ thủ đắc lực nhất.</span>"
+            </blockquote>
+
+            <p class="mt-8 text-sm text-gray-400">
+                Developer luôn chịu trách nhiệm về <br> <strong>Business Logic • Kiến trúc • Security • Chất lượng</strong>
+            </p>
+        </section>
+
+        <!-- Cảm ơn -->
+        <section>
+            <h1 class="text-sky-400">Q & A</h1>
+            <p class="mt-4 text-xl">Cảm ơn mọi người đã lắng nghe!</p>
+            <div class="mt-12 text-sm text-gray-500 border-t border-gray-700 pt-8">
+                Phân bổ thời gian dự kiến: ~15 phút
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<!-- STREAMING_CHUNK:Initializing Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+<script>
+    // Initialize Reveal.js
+    Reveal.initialize({
+        hash: true,
+        controls: true,
+        progress: true,
+        center: true,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Tắt auto-slide để người thuyết trình tự kiểm soát
+        autoSlide: 0,
+        // Cấu hình kích thước slide
+        width: 1100,
+        height: 700,
+        margin: 0.1,
+        minScale: 0.2,
+        maxScale: 2.0
+    });
+</script>
+</body>
+</html>
+```eof
+### Hướng dẫn sử dụng:
+1. Bạn nhấn nút **Preview** (Xem trước) trên giao diện này để xem ngay.
+2. Hoặc bạn tạo một file tên là `slide-vtcedu.html` ở máy tính, copy toàn bộ code trên dán vào, sau đó mở file bằng trình duyệt (Chrome/Cốc Cốc...).
+3. **Cách điều khiển Slide:**
+* Dùng **phím mũi tên Trái/Phải** để qua bài (chuyển sang phần 1, 2, 3...).
+* Dùng **phím mũi tên Lên/Xuống** để xem các phần mở rộng (như ở Slide 1 xu hướng, Slide 6 flowchart, Slide 7 các bước thực tế).
+* Bấm phím **F** hoặc `F11` trên bàn phím để phóng to toàn màn hình.
+* Bấm phím **Esc** để hiển thị góc nhìn toàn cảnh (Bird-eye view) tất cả các slide.
+
+Bạn hãy xem thử nhé, phần giao diện Terminal CLI ở Slide 7 nhìn cực kỳ "bánh cuốn" và ra dáng một buổi tech-talk nội bộ đấy! Nếu bạn muốn chỉnh lại màu sắc thương hiệu của VTC, hãy báo tôi nhé!
