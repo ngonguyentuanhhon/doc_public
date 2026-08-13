@@ -293,6 +293,9 @@ id
 topic_id
 parent_id
 
+depth
+path
+
 content
 
 state
@@ -309,6 +312,10 @@ updated_at
 deleted_at
 ```
 
+-   `parent_id`: Post root mặc định `parent_id = 0`. Reply thì `parent_id != 0`.
+-   `depth`: Độ sâu của post. Post cha `depth = 1`, các post child thì `depth = parent_depth + 1`.
+-   `path`: Lưu chuỗi id của các parent post và chính nó để truy vấn nhanh. VD: `postId=1` -> `path=/1/`; `postId=2` (con của 1) -> `path=/1/2/`; `postId=3` (con của 2) -> `path=/1/2/3/`.
+
 ------------------------------------------------------------------------
 
 # 6. Reply
@@ -316,7 +323,7 @@ deleted_at
 Reply chỉ là Post có:
 
 ``` text
-parent_id != NULL
+parent_id != 0
 ```
 
 Ví dụ:
@@ -766,46 +773,40 @@ Post
 
 Ý nghĩa:
 
-  Stats            Định nghĩa
-  ---------------- -------------------------------
-  topic_count      số Topic visible
-  post_count       số Post visible
-  reply_count      số direct child visible
-  reaction_stats   số interaction theo từng type
+| Stats          | Định nghĩa                     |
+|----------------|--------------------------------|
+| topic_count    | số Topic visible               |
+| post_count     | số Post visible                |
+| reply_count    | số direct child visible        |
+| reaction_stats |  số interaction theo từng type |
 
 ------------------------------------------------------------------------
 
-# 22. Hidden ảnh hưởng Stats
+# 22. Hidden & Delete ảnh hưởng Stats
 
-Ví dụ:
+Khi một entity bị `hidden` hoặc `deleted`, các stats liên quan sẽ được cập nhật như sau:
 
-``` text
-Topic
-├── Post A
-├── Post B
-└── Post C
-```
+1. **Topic bị hidden/deleted**:
+   - `Category.topic_count -= 1`
+   - Các Post bên trong tự động không hiển thị.
 
-Nếu:
+2. **Post (Root) bị hidden/deleted**:
+   - Toàn bộ replies bên dưới (con, cháu) coi như bị ẩn theo.
+   - Có thể dùng trường `path` để đếm tổng số lượng post con cháu đang active bị ảnh hưởng (VD: `path LIKE '/root_id/%'`).
+   - `Topic.post_count -= (1 + tổng số lượng replies con cháu đang active)`.
 
-``` text
-Post B → hidden
-```
+3. **Reply bị hidden/deleted**:
+   - `ParentPost.reply_count -= 1` (chỉ giảm của parent trực tiếp).
+   - Toàn bộ các post cháu (nested reply) cũng bị ẩn theo.
+   - `Topic.post_count -= (1 + tổng số lượng replies con cháu đang active)`. (Dùng trường `path` để tìm và đếm tất cả child nodes).
 
-thì:
+4. **Category bị hidden/deleted**:
+   - Ẩn toàn bộ Topic bên trong (thường query sẽ check kèm theo state của Category).
+   - Các counter của Topic không cần update để giữ nguyên trạng thái khi restore.
 
-``` text
-post_count -= 1
-```
-
-Nếu Reply bị hidden:
-
-``` text
-reply_count -= 1
-post_count -= 1
-```
-
-Reaction cũ vẫn giữ.
+**Lưu ý:**
+- Các operations như `unhide`, `restore` sẽ làm ngược lại logic trên (cộng lại các counter).
+- Reaction cũ của các bài bị ẩn/xóa vẫn giữ record trong DB nhưng không query hiển thị trên UI.
 
 ------------------------------------------------------------------------
 
@@ -843,31 +844,7 @@ Các thao tác:
 
 ------------------------------------------------------------------------
 
-# 24. Kafka
-
-Flow đề xuất:
-
-``` text
-DB Transaction
-│
-├── forum_post_reactions
-├── forum_post_reaction_stats
-└── outbox_events
-        │
-        ▼
-Kafka
-```
-
-Downstream:
-
--   Analytics
--   Notification
--   Recommendation
--   Gamification
-
-------------------------------------------------------------------------
-
-# 25. Ranh giới Service
+# 24. Ranh giới Service
 
 ## Forum sở hữu
 
@@ -892,7 +869,7 @@ Downstream:
 
 ------------------------------------------------------------------------
 
-# 26. ERD cuối cùng
+# 25. ERD cuối cùng
 
 ``` text
 Category
@@ -916,40 +893,38 @@ Topic.image_path
 
 ------------------------------------------------------------------------
 
-# 27. Checklist quyết định cuối
+# 26. Checklist quyết định cuối
 
-  Quyết định                                Kết quả
-  ----------------------------------------- ----------------------
-  topic_type                                ❌
-  Discussion/Q&A entity riêng               ❌
-  Reply entity                              ❌
-  Answer entity                             ❌
-  parent_id                                 ✅
-  Nested Reply                              ✅
-  Nhiều Accepted Answer                     ✅
-  is_accepted_answer                        ✅
-  Reaction là event                         ✅
-  Duplicate reaction                        Cho phép
-  Reaction Stats riêng                      ✅
-  actor_type + actor_id                     ✅
-  State Category                            active/locked/hidden
-  State Topic                               active/locked/hidden
-  State Post                                active/hidden
-  Pin Topic                                 ✅
-  Pin Post                                  ✅
-  topic_count                               ✅
-  post_count                                ✅
-  reply_count                               ✅
-  Image lưu trực tiếp trên Category/Topic   ✅
-  category_image attachable_type            ❌
-  topic_image attachable_type               ❌
-  File binary do Forum quản lý              ❌
-  Kafka                                     Khuyến nghị
-  Outbox                                    Khuyến nghị
+| Quyết định                                  | Kết quả              |
+|---------------------------------------------|----------------------|
+| topic_type                                  | ❌                    |
+| Discussion/Q&A entity riêng                 | ❌                    |
+| Reply entity                                | ❌                    |
+| Answer entity                               | ❌                    |
+| parent_id                                   | ✅                    |
+| Nested Reply                                | ✅                    |
+| Nhiều Accepted Answer                       | ✅                    |
+| is_accepted_answer                          | ✅                    |
+| Reaction là event                           | ✅                    |
+| Duplicate reaction                          | Cho phép             |
+| Reaction Stats riêng                        | ✅                    |
+| actor_type + actor_id                       | ✅                    |
+| State Category                              | active/locked/hidden |
+| State Topic                                 | active/locked/hidden |
+| State Post                                  | active/hidden        |
+| Pin Topic                                   | ✅                    |
+| Pin Post                                    | ✅                    |
+| topic_count                                 | ✅                    |
+| post_count                                  | ✅                    |
+| reply_count                                 | ✅                    |
+| Image lưu trực tiếp trên Category/Topic     | ✅                    |
+| category_image attachable_type              | ❌                    |
+| topic_image attachable_type                 | ❌                    |
+| File binary do Forum quản lý                | ❌                    |
 
 ------------------------------------------------------------------------
 
-# 28. Kiến trúc cuối
+# 27. Kiến trúc cuối
 
 ``` text
             LMS
@@ -987,7 +962,6 @@ trợ:
 -   Reply nhiều tầng
 -   Nhiều Accepted Answer
 -   Reaction theo từng loại
--   Pin
 -   Moderation
 -   Attachment
 -   Ảnh Category/Topic
@@ -995,7 +969,6 @@ trợ:
 -   Customer/Teacher độc lập
 -   Authorization ngoài
 -   File Service ngoài
--   Kafka event-driven
 
 Forum Service chỉ tập trung vào **quản lý nội dung và tương tác**, còn
 Identity, Authorization và File Storage được giao cho các service chuyên
