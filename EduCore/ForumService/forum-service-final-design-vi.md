@@ -631,21 +631,21 @@ LMS sẽ quyết định Actor có quyền vào context đó hay không.
 
 # 17. Permission Matrix
 
-  Chức năng       Teacher   Customer
-  --------------- --------- ----------
-  Xem Category    ✅        ✅
-  Xem Topic       ✅        ✅
-  Tạo Topic       ✅        ✅
-  Reply           ✅        ✅
-  Edit bài mình   ✅        ✅
-  Xóa bài mình    ✅        ✅
-  Reaction        ✅        ✅
-  Attachment      ✅        ✅
-  Pin Topic       ✅        ❌
-  Lock Topic      ✅        ❌
-  Hide Topic      ✅        ❌
-  Hide Post       ✅        ❌
-  Accept Answer   ✅        ❌
+|  Chức năng      | Teacher  | Customer |
+|  ---------------| ---------|----------|
+|  Xem Category   | ✅       | ✅       |
+|  Xem Topic      | ✅       | ✅       |
+|  Tạo Topic      | ✅       | ✅       |
+|  Reply          | ✅       | ✅       |
+|  Edit bài mình  | ✅       | ✅       |
+|  Xóa bài mình   | ✅       | ✅       |
+|  Reaction       | ✅       | ✅       |
+|  Attachment     | ✅       | ✅       |
+|  Pin Topic      | ✅       | ❌       |
+| Lock Topic      |✅        | ❌       |
+|  Hide Topic     | ✅       | ❌       |
+|  Hide Post      | ✅       | ❌       |
+|  Accept Answer  | ✅       | ❌       |
 
 ------------------------------------------------------------------------
 
@@ -895,8 +895,8 @@ Topic.image_path
 
 # 26. Checklist quyết định cuối
 
-| Quyết định                                  | Kết quả              |
-|---------------------------------------------|----------------------|
+| Quyết định                                  | Kết quả               |
+|---------------------------------------------|-----------------------|
 | topic_type                                  | ❌                    |
 | Discussion/Q&A entity riêng                 | ❌                    |
 | Reply entity                                | ❌                    |
@@ -906,12 +906,12 @@ Topic.image_path
 | Nhiều Accepted Answer                       | ✅                    |
 | is_accepted_answer                          | ✅                    |
 | Reaction là event                           | ✅                    |
-| Duplicate reaction                          | Cho phép             |
+| Duplicate reaction                          | Cho phép              |
 | Reaction Stats riêng                        | ✅                    |
 | actor_type + actor_id                       | ✅                    |
-| State Category                              | active/locked/hidden |
-| State Topic                                 | active/locked/hidden |
-| State Post                                  | active/hidden        |
+| State Category                              | active/locked/hidden  |
+| State Topic                                 | active/locked/hidden  |
+| State Post                                  | active/hidden         |
 | Pin Topic                                   | ✅                    |
 | Pin Post                                    | ✅                    |
 | topic_count                                 | ✅                    |
